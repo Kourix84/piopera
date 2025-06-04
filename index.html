@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite + React</title>
+  <link rel="stylesheet" href="./src/styles/index.css">
+</head>
+
+<body>
+  <!-- Page Title -->
+  <h1>Board Game Project Piopera</h1>
+  <!-- Grid Menu -->
+  <main>
+    <div class="grid-menu">
+      <a href="mysterybox.html">Mystery Box Page</a>
+      <a href="sideQuest.html">Side Quest Page</a>
+      <a href="quizGame.html">Sticker Question</a>
+    </div>
+    <button id="deleteDbBtn">Restart Game</button>
+  </main>
+  <!-- Rulebook Floating Button -->
+  <a href="rulebook.html" class="rulebook-fab" title="Open Rulebook">
+    <span class="book-icon" aria-hidden="true">
+      <!-- SVG book icon -->
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H21" stroke="#fff" stroke-width="2" stroke-linecap="round" />
+        <path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H21v20H6.5A2.5 2.5 0 0 1 4 19.5z" stroke="#fff" stroke-width="2"
+          stroke-linecap="round" />
+      </svg>
+    </span>
+    <span class="rulebook-text">Rulebook</span>
+  </a>
+  <!-- Footer -->
+  <footer>
+    <p> © 2025 Piopera. All rights reserved. Made with ❤️ by Slaygency Team</p>
+  </footer>
+
+  <script>
+    document.getElementById("deleteDbBtn").addEventListener("click", async () => {
+      if (!('indexedDB' in window)) {
+        alert("IndexedDB not supported in this browser.");
+        return;
+      }
+
+      // List and delete all databases (works in modern browsers)
+      if (indexedDB.databases) {
+        const dbs = await indexedDB.databases();
+        dbs.forEach(db => {
+          if (db.name) {
+            indexedDB.deleteDatabase(db.name);
+            console.log(`Deleted DB: ${db.name}`);
+          }
+        });
+        alert("Game reset successfully. All databases deleted.");
+      } else {
+        alert("Your browser does not support indexedDB.databases(). Can't list databases.");
+      }
+    });
+  </script>
+</body>
+
+</html>
